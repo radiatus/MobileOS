@@ -31,46 +31,14 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    });
 
-    private void loadData(int page) {
-        try {
-            String apiKey = "1a5b083247293a901503309f2b120dcd";
-            String sharedSecret = "4ecc5f2f994e135a";
-            REST rest = new REST();
-            Flickr flickrClient = new Flickr(apiKey, sharedSecret, rest);
 
-
-            PhotoList<Photo> photos;
-            SearchParameters searchParameters = new SearchParameters();
-            searchParameters.setMedia("photos"); // One of "photos", "videos" or "all"
-            searchParameters.setPrivacyFilter(1);
-            searchParameters.setLatitude("51.656091");
-            searchParameters.setLongitude("39.206136");
-            searchParameters.setRadius(10); // Km around the given location where to search pictures
-            searchParameters.setSort(SearchParameters.RELEVANCE);
-            searchParameters.setAccuracy(Flickr.ACCURACY_REGION);
-
-            photos = flickrClient.getPhotosInterface().searchInterestingness(searchParameters, 10, page);
-
-            for (int i = 0; i < photos.size(); ++i) {
-                Photo photo = photos.get(i);
-
-                Log.i("url", String.format("Title: %s", photo.getTitle()));
-                Log.i("url", String.format("Media: %s", photo.getMedia()));
-                Log.i("url", String.format("Original Small URL: %s", photo.getSmallUrl()));
-                Log.i("url", String.format("Original Small URL: %s", photo.getLargeUrl()));
-            }
-        } catch (FlickrException e) {
-            e.printStackTrace();
-            Log.e("url" , "Govno");
-        }
-    }
     // Store a member variable for the listener
-    private EndlessRecyclerViewScrollListener scrollListener;
+//    private EndlessRecyclerViewScrollListener scrollListener;
 
     public void loadNextDataFromApi(int offset) {
 
-        Thread t = new Thread(() -> loadData(1));
-        t.start();
+//        Thread t = new Thread(() -> loadData(1));
+//        t.start();
         
         // Send an API request to retrieve appropriate paginated data
         //  --> Send the request including an offset value (i.e `page`) as a query parameter.
@@ -79,25 +47,40 @@ public class MainActivity extends AppCompatActivity {
         //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
     }
 
+    private RecyclerView urlList;
+    private ImagesAdapter imagesAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView rvItems = (RecyclerView) findViewById(R.id.recyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rvItems.setLayoutManager(linearLayoutManager);
+        urlList = findViewById(R.id.recyclerview);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        urlList.setLayoutManager(layoutManager);
+        urlList.setHasFixedSize(true);
+
+
+//        Thread t = new Thread(() -> loadData(20, 1));
+//        t.start();
+
+        imagesAdapter = new ImagesAdapter(20);
+        urlList.setAdapter(imagesAdapter);
+
+//        RecyclerView rvItems = (RecyclerView) findViewById(R.id.recyclerview);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        rvItems.setLayoutManager(linearLayoutManager);
         // Retain an instance so that you can call `resetState()` for fresh searches
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
-                loadNextDataFromApi(page);
-            }
-        };
+//        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+//            @Override
+//            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+//                // Triggered only when new data needs to be appended to the list
+//                // Add whatever code is needed to append new items to the bottom of the list
+//                loadNextDataFromApi(page);
+//            }
+//        };
         // Adds the scroll listener to RecyclerView
-        rvItems.addOnScrollListener(scrollListener);
+//        rvItems.addOnScrollListener(scrollListener);
 
 //        // Lookup the recyclerview in activity layout
 //        RecyclerView rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
