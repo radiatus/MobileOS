@@ -20,37 +20,25 @@ import com.flickr4java.flickr.photos.PhotoList;
 import com.flickr4java.flickr.photos.SearchParameters;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesViewHolder>{
 
-    private int numberItems;
     PhotoList<Photo> photos;
+    Context context;
 
-    public ImagesAdapter(int numberOfItems) {
-        numberItems = numberOfItems;
-
-        Callable task = () -> loadData(numberOfItems, 1);
-        FutureTask<PhotoList<Photo>> future = new FutureTask<>(task);
-        new Thread(future).start();
-
-        try {
-            photos = future.get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            Log.e("url" , "Govno1");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Log.e("url" , "Govno2");
-        }
+    public ImagesAdapter(PhotoList<Photo> photosData) {
+        photos = photosData;
     }
 
     @NonNull
     @Override
     public ImagesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         int layoutIdForListItem = R.layout.image_layout;
 
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -65,63 +53,40 @@ public class ImagesAdapter extends RecyclerView.Adapter<ImagesAdapter.ImagesView
 
 //        holder.bind(photos.get(position).getSmallUrl());
         holder.bind(photos.get(position).getLargeUrl());
+        Log.i("url", String.format("Photos in adapter: %s", photos.size()));
     }
 
     @Override
     public int getItemCount() {
-        return numberItems;
-    }
-
-    private PhotoList<Photo> loadData(int positions, int page) {
-        try {
-            String apiKey = "1a5b083247293a901503309f2b120dcd";
-            String sharedSecret = "4ecc5f2f994e135a";
-            REST rest = new REST();
-            Flickr flickrClient = new Flickr(apiKey, sharedSecret, rest);
-
-
-            PhotoList<Photo> photos;
-            SearchParameters searchParameters = new SearchParameters();
-            searchParameters.setMedia("photos"); // One of "photos", "videos" or "all"
-            searchParameters.setPrivacyFilter(1);
-            searchParameters.setLatitude("51.656091");
-            searchParameters.setLongitude("39.206136");
-            searchParameters.setRadius(10); // Km around the given location where to search pictures
-            searchParameters.setSort(SearchParameters.RELEVANCE);
-            searchParameters.setAccuracy(Flickr.ACCURACY_REGION);
-
-            photos = flickrClient.getPhotosInterface().searchInterestingness(searchParameters, positions, page);
-
-            for (int i = 0; i < photos.size(); ++i) {
-                Photo photo = photos.get(i);
-
-                Log.i("url", String.format("Title: %s", photo.getTitle()));
-                Log.i("url", String.format("Media: %s", photo.getMedia()));
-                Log.i("url", String.format("Original Small URL: %s", photo.getSmallUrl()));
-                Log.i("url", String.format("Original Small URL: %s", photo.getLargeUrl()));
-            }
-
-            return photos;
-
-        } catch (FlickrException e) {
-            e.printStackTrace();
-            Log.e("url" , "Govno");
-            return null;
-        }
+        return photos.size();
     }
 
     class ImagesViewHolder extends RecyclerView.ViewHolder {
 
         ImageView listUrlsView;
+        TextView text;
 
         public ImagesViewHolder(@NonNull View itemView) {
             super(itemView);
 
             listUrlsView = itemView.findViewById(R.id.imageUrl);
+            text = itemView.findViewById(R.id.likeImage);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    int positionIndex = getAdapterPosition();
+
+                    text.setText("text");
+                    return true;
+                }
+            });
         }
 
         void bind(String urlImage){
-            Picasso.get().load(urlImage).resize(1000,1000).centerInside().into(listUrlsView);
+            Picasso.get().load(urlImage).resize(900,900).centerInside().into(listUrlsView);
+            text.setText(String.valueOf(0));
         }
     }
 }
