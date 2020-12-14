@@ -2,12 +2,16 @@ package com.radiatus.instaFram;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.squareup.picasso.Picasso;
 
 
 @Entity
@@ -92,5 +96,14 @@ public class FlickrPhoto extends BaseObservable implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    @BindingAdapter({"bind:imageUrl"})
+    public static void loadImage(ImageView view, String imageUrl) {
+//        if (view.getDrawable() == null)
+            Picasso.get()
+                    .load(imageUrl)
+                    .placeholder( R.drawable.ic_placeholder)
+                    .into(view);
     }
 }

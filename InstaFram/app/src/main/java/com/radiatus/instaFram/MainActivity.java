@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageScrollAdapter imageScrollAdapter = new ImageScrollAdapter(viewModel, new FlickrPhotoCompareCallback());
 
+
         viewModel.getPagedListLiveData().observe(this, flickrPhotos -> {
                 imageScrollAdapter.submitList(flickrPhotos);
             }

@@ -36,8 +36,7 @@
                 android:adjustViewBounds="true"
                 android:onClick="@{imageClick}"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_like_disable"
-                android:transitionName="@string/image_transition" />
+                android:src="@drawable/ic_like_disable"/>
 
             <ImageView
                 android:id="@+id/image_like"
@@ -49,8 +48,7 @@
                 android:layout_marginEnd="10dp"
                 android:onClick="@{likeClick}"
                 android:scaleType="centerCrop"
-                android:src="@{flickrPhoto.hasLike() ? @drawable/ic_like_enable : @drawable/ic_like_disable}"
-                android:transitionName="@string/image_like_transition" />
+                android:src="@{flickrPhoto.hasLike() ? @drawable/ic_like_enable : @drawable/ic_like_disable}"/>
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

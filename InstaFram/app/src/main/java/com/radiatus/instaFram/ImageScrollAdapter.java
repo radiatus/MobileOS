@@ -19,6 +19,7 @@ public class ImageScrollAdapter extends PagedListAdapter<FlickrPhoto, ImageScrol
     public ImageScrollAdapter(FlickrViewModel model, DiffUtil.ItemCallback<FlickrPhoto> diffUtilCallback) {
         super(diffUtilCallback);
         this.model = model;
+
     }
 
     @NonNull
@@ -50,6 +51,7 @@ public class ImageScrollAdapter extends PagedListAdapter<FlickrPhoto, ImageScrol
 
         public ImageViewHolder(ImageViewBinding imageFlickerViewBinding, FlickrViewModel model) {
             super(imageFlickerViewBinding.getRoot());
+
             this.model = model;
 
             this.imageFlickerViewBinding = imageFlickerViewBinding;
