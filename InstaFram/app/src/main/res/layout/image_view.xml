@@ -11,10 +11,6 @@
         <variable
             name="likeClick"
             type="android.view.View.OnClickListener" />
-
-        <variable
-            name="imageClick"
-            type="android.view.View.OnClickListener" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -34,7 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:onClick="@{imageClick}"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_like_disable"/>
 

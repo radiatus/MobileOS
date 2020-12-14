@@ -1,3 +1,4 @@
+
 package com.radiatus.instaFram;
 
 import android.view.LayoutInflater;
@@ -58,7 +59,7 @@ public class ImageScrollAdapter extends PagedListAdapter<FlickrImage, ImageScrol
 
         private void likeClickListener(View v)
         {
-            photo.clickLike();
+            photo.likeChanged();
             model.updateOrInsert(photo);
         }
     }

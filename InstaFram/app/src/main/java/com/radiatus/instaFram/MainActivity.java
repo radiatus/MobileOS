@@ -35,13 +35,4 @@ public class MainActivity extends AppCompatActivity {
         binding.imageScrollView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayout.VERTICAL));
         binding.imageScrollView.setAdapter(imageScrollAdapter);
     }
-
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Bundle arguments = data.getExtras();
-
-        if(arguments != null)
-            viewModel.updateOrInsert(arguments.getParcelable("photo"));
-    }
 }

@@ -14,7 +14,6 @@ public class FlickrImageCompareCallback extends DiffUtil.ItemCallback<FlickrImag
 
     @Override
     public boolean areContentsTheSame(@NonNull FlickrImage oldItem, @NonNull FlickrImage newItem) {
-        Log.d("areContentsTheSame", String.valueOf(oldItem.hasLike() == newItem.hasLike()));
         return oldItem.getIsLike() == newItem.getIsLike();
     }
 }

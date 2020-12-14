@@ -88,7 +88,7 @@ public class FlickrImage extends BaseObservable implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
-    public void clickLike() {
+    public void likeChanged() {
         isLike = (isLike == 1) ? 0 : 1;
         notifyPropertyChanged(BR._all);
     }

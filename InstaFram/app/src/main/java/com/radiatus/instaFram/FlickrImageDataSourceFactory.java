@@ -6,6 +6,7 @@ public class FlickrImageDataSourceFactory extends DataSource.Factory<Integer, Fl
 
     private final FlickrDataSource flickrDataSource;
     private FlickrPositionDataSource flickrPositionDataSource;
+
     public FlickrImageDataSourceFactory(FlickrDataSource flickrDataSource) {
         this.flickrDataSource = flickrDataSource;
         this.flickrPositionDataSource = new FlickrPositionDataSource(flickrDataSource);
