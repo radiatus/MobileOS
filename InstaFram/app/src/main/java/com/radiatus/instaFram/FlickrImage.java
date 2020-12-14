@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 
 @Entity
-public class FlickrPhoto extends BaseObservable implements Parcelable {
+public class FlickrImage extends BaseObservable implements Parcelable {
 
     @PrimaryKey
     private long id;
@@ -24,18 +24,18 @@ public class FlickrPhoto extends BaseObservable implements Parcelable {
     @Ignore
     private String imageUrl;
 
-    public FlickrPhoto(long id, int isLike) {
+    public FlickrImage(long id, int isLike) {
         this.id = id;
         this.isLike = isLike;
     }
 
-    public FlickrPhoto(String imageUrl, long id, int isLike) {
+    public FlickrImage(String imageUrl, long id, int isLike) {
         this.imageUrl = imageUrl;
         this.isLike = isLike;
         this.id = id;
     }
 
-    protected FlickrPhoto(Parcel in) {
+    protected FlickrImage(Parcel in) {
         id = in.readLong();
         isLike = in.readInt();
         imageUrl = in.readString();
@@ -48,15 +48,15 @@ public class FlickrPhoto extends BaseObservable implements Parcelable {
         dest.writeString(imageUrl);
     }
 
-    public static final Creator<FlickrPhoto> CREATOR = new Creator<FlickrPhoto>() {
+    public static final Creator<FlickrImage> CREATOR = new Creator<FlickrImage>() {
         @Override
-        public FlickrPhoto createFromParcel(Parcel in) {
-            return new FlickrPhoto(in);
+        public FlickrImage createFromParcel(Parcel in) {
+            return new FlickrImage(in);
         }
 
         @Override
-        public FlickrPhoto[] newArray(int size) {
-            return new FlickrPhoto[size];
+        public FlickrImage[] newArray(int size) {
+            return new FlickrImage[size];
         }
     };
 
@@ -75,7 +75,7 @@ public class FlickrPhoto extends BaseObservable implements Parcelable {
         return isLike;
     }
     
-    public FlickrPhoto( FlickrPhoto other)
+    public FlickrImage(FlickrImage other)
     {
         this(other.getImageUrl(), other.getId(), other.getIsLike());
     }
@@ -100,7 +100,6 @@ public class FlickrPhoto extends BaseObservable implements Parcelable {
 
     @BindingAdapter({"bind:imageUrl"})
     public static void loadImage(ImageView view, String imageUrl) {
-//        if (view.getDrawable() == null)
             Picasso.get()
                     .load(imageUrl)
                     .placeholder( R.drawable.ic_placeholder)

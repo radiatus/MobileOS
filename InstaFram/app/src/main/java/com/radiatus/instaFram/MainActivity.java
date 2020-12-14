@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewModel = ViewModelProviders.of(this).get(FlickrViewModel.class);
 
-        ImageScrollAdapter imageScrollAdapter = new ImageScrollAdapter(viewModel, new FlickrPhotoCompareCallback());
+        ImageScrollAdapter imageScrollAdapter = new ImageScrollAdapter(viewModel, new FlickrImageCompareCallback());
 
 
         viewModel.getPagedListLiveData().observe(this, flickrPhotos -> {
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
         binding.imageScrollView.setLayoutManager(new StaggeredGridLayoutManager(1, LinearLayout.VERTICAL));
         binding.imageScrollView.setAdapter(imageScrollAdapter);
     }

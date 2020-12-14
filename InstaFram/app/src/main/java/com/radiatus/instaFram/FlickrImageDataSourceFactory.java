@@ -2,11 +2,11 @@ package com.radiatus.instaFram;
 
 import androidx.paging.DataSource;
 
-public class FlickrPhotoDaraSourceFactory extends DataSource.Factory<Integer, FlickrPhoto> {
+public class FlickrImageDataSourceFactory extends DataSource.Factory<Integer, FlickrImage> {
 
     private final FlickrDataSource flickrDataSource;
     private FlickrPositionDataSource flickrPositionDataSource;
-    public FlickrPhotoDaraSourceFactory(FlickrDataSource flickrDataSource) {
+    public FlickrImageDataSourceFactory(FlickrDataSource flickrDataSource) {
         this.flickrDataSource = flickrDataSource;
         this.flickrPositionDataSource = new FlickrPositionDataSource(flickrDataSource);
     }

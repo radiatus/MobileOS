@@ -13,34 +13,34 @@ import java.util.concurrent.Executors;
 public class Repository {
 
     private final LocalDataBase dataBase;
-    private final LiveData< PagedList<FlickrPhoto>> pagedListLiveData;
-    private final FlickrPhotoDaraSourceFactory dataSourceFactory;
+    private final LiveData< PagedList<FlickrImage>> pagedListLiveData;
+    private final FlickrImageDataSourceFactory dataSourceFactory;
 
     public Repository(@NonNull Application application)
     {
         dataBase = Room.databaseBuilder(application,
                 LocalDataBase.class, "database")
-                .fallbackToDestructiveMigrationFrom(1) // BD version
+                .fallbackToDestructiveMigrationFrom(2)
                 .build();
 
         FlickrDataSource dao = new FlickrDataSource(dataBase);
-        dao.setSearchTile("Voronezh"); // Search Voronezh image
+        dao.setSearchTile("Voronezh");
 
-        dataSourceFactory = new FlickrPhotoDaraSourceFactory(dao);
+        dataSourceFactory = new FlickrImageDataSourceFactory(dao);
 
         PagedList.Config config = new PagedList.Config
                 .Builder()
-                .setMaxSize(400)
+                .setMaxSize(200)
                 .setEnablePlaceholders(false)
-                .setPageSize(20)
+                .setPageSize(10)
                 .build();
 
         pagedListLiveData = new LivePagedListBuilder<>(dataSourceFactory, config)
-                .setFetchExecutor(Executors.newSingleThreadExecutor()) //Load data from another thread
+                .setFetchExecutor(Executors.newSingleThreadExecutor())
                 .build();
     }
 
-    public LiveData<PagedList<FlickrPhoto>> getPagedListLiveData() {
+    public LiveData<PagedList<FlickrImage>> getPagedListLiveData() {
         return pagedListLiveData;
     }
 
@@ -48,30 +48,30 @@ public class Repository {
         dataSourceFactory.invalidate();
     }
 
-    public void insert(FlickrPhoto flickrPhoto) {
+    public void insert(FlickrImage flickrImage) {
         Runnable task = () -> {
-            dataBase.flickrPhotoDAO().insert(flickrPhoto);
+            dataBase.flickrPhotoDAO().insert(flickrImage);
             updatePageList();
         };
         startTread(task);
     }
 
-    public void update(FlickrPhoto flickrPhoto)  {
+    public void update(FlickrImage flickrImage)  {
         Runnable task = () -> {
-            dataBase.flickrPhotoDAO().update(flickrPhoto);
+            dataBase.flickrPhotoDAO().update(flickrImage);
             updatePageList();
         };
         startTread(task);
     }
 
 
-    public void updateOrInsert(FlickrPhoto flickrPhoto)
+    public void updateOrInsert(FlickrImage flickrImage)
     {
         Runnable task = () -> {
-            if(dataBase.flickrPhotoDAO().getByID(flickrPhoto.getId()) == null)
-                dataBase.flickrPhotoDAO().insert(flickrPhoto);
+            if(dataBase.flickrPhotoDAO().getByID(flickrImage.getId()) == null)
+                dataBase.flickrPhotoDAO().insert(flickrImage);
             else
-                dataBase.flickrPhotoDAO().update(flickrPhoto);
+                dataBase.flickrPhotoDAO().update(flickrImage);
             updatePageList();
         };
         startTread(task);

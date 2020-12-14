@@ -4,8 +4,8 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
 
-@Database(entities = {FlickrPhoto.class}, version = 1)
+@Database(entities = {FlickrImage.class}, version = 2)
 public abstract class LocalDataBase extends RoomDatabase {
-    public abstract FlickrPhotoDAO flickrPhotoDAO();
+    public abstract FlickrImageDAO flickrPhotoDAO();
 
 }

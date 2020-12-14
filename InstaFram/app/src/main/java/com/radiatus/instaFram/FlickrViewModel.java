@@ -15,20 +15,20 @@ public class FlickrViewModel extends AndroidViewModel {
         repository = new Repository(application);
     }
 
-    public void update(FlickrPhoto flickrPhoto) {
-        repository.update(flickrPhoto);
+    public void update(FlickrImage flickrImage) {
+        repository.update(flickrImage);
     }
 
-    public void updateOrInsert(FlickrPhoto flickrPhoto)
+    public void updateOrInsert(FlickrImage flickrImage)
     {
-        repository.updateOrInsert(flickrPhoto);
+        repository.updateOrInsert(flickrImage);
     }
 
-    public LiveData<PagedList<FlickrPhoto>> getPagedListLiveData() {
+    public LiveData<PagedList<FlickrImage>> getPagedListLiveData() {
         return repository.getPagedListLiveData();
     }
 
-    public void insert(FlickrPhoto flickrPhoto) {
-        repository.insert(flickrPhoto);
+    public void insert(FlickrImage flickrImage) {
+        repository.insert(flickrImage);
     }
 }

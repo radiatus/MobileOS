@@ -18,7 +18,7 @@ import static com.flickr4java.flickr.photos.SearchParameters.RELEVANCE;
 
 public class FlickrDataSource {
 
-    private final FlickrPhotoDAO db;
+    private final FlickrImageDAO db;
     private final PhotosInterface photos;
     private final SearchParameters params;
     private List<Photo> pageLoaded;
@@ -52,7 +52,7 @@ public class FlickrDataSource {
 
     private Photo getPhotoByFlicker(int index) {
         try {
-            int pageSize = 100;
+            int pageSize = 50;
             int needPage = index / pageSize;
             if (needPage != pageForLoading) {
                 pageForLoading = needPage;
@@ -77,19 +77,19 @@ public class FlickrDataSource {
         return null;
     }
 
-    public List<FlickrPhoto> getDataByPage(int startPosition, int itemCount) {
-        List<FlickrPhoto> flickrPhotos = new ArrayList<>();
+    public List<FlickrImage> getDataByPage(int startPosition, int itemCount) {
+        List<FlickrImage> flickrImages = new ArrayList<>();
 
         for (int iItem = 0; iItem < itemCount; iItem++) {
             Photo photo = getPhotoByFlicker(startPosition + iItem);
             assert photo != null;
             long id = Long.parseLong(photo.getId());
 
-            FlickrPhoto flickrPhoto = Optional.ofNullable(db.getByID(id)).orElse(new FlickrPhoto(photo.getLargeUrl(), id, 0));
+            FlickrImage flickrImage = Optional.ofNullable(db.getByID(id)).orElse(new FlickrImage(photo.getLargeUrl(), id, 0));
 
-            flickrPhoto.setImageUrl(photo.getLargeUrl());
-            flickrPhotos.add(flickrPhoto);
+            flickrImage.setImageUrl(photo.getLargeUrl());
+            flickrImages.add(flickrImage);
         }
-        return flickrPhotos;
+        return flickrImages;
     }
 }

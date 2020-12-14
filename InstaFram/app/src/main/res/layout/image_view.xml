@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="flickrPhoto"
-            type="com.radiatus.instaFram.FlickrPhoto" />
+            name="flickrImage"
+            type="com.radiatus.instaFram.FlickrImage" />
 
         <variable
             name="likeClick"
@@ -30,7 +30,7 @@
 
             <ImageView
                 android:id="@+id/image"
-                bind:imageUrl="@{flickrPhoto.imageUrl}"
+                bind:imageUrl="@{flickrImage.imageUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -48,7 +48,7 @@
                 android:layout_marginEnd="10dp"
                 android:onClick="@{likeClick}"
                 android:scaleType="centerCrop"
-                android:src="@{flickrPhoto.hasLike() ? @drawable/ic_like_enable : @drawable/ic_like_disable}"/>
+                android:src="@{flickrImage.hasLike() ? @drawable/ic_like_enable : @drawable/ic_like_disable}"/>
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

@@ -1,6 +1,5 @@
 package com.radiatus.instaFram;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.radiatus.instaFram.databinding.ImageViewBinding;
 
-public class ImageScrollAdapter extends PagedListAdapter<FlickrPhoto, ImageScrollAdapter.ImageViewHolder> {
+public class ImageScrollAdapter extends PagedListAdapter<FlickrImage, ImageScrollAdapter.ImageViewHolder> {
 
     private final FlickrViewModel model;
 
-    public ImageScrollAdapter(FlickrViewModel model, DiffUtil.ItemCallback<FlickrPhoto> diffUtilCallback) {
+    public ImageScrollAdapter(FlickrViewModel model, DiffUtil.ItemCallback<FlickrImage> diffUtilCallback) {
         super(diffUtilCallback);
         this.model = model;
 
@@ -32,8 +31,7 @@ public class ImageScrollAdapter extends PagedListAdapter<FlickrPhoto, ImageScrol
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        FlickrPhoto photo = new FlickrPhoto(getItem(position));
-        Log.w("itemCount", String.valueOf(getItemCount()));
+        FlickrImage photo = new FlickrImage(getItem(position));
 
         holder.bind(photo);
     }
@@ -42,11 +40,11 @@ public class ImageScrollAdapter extends PagedListAdapter<FlickrPhoto, ImageScrol
 
         private final ImageViewBinding imageFlickerViewBinding;
         private final FlickrViewModel model;
-        private FlickrPhoto photo;
+        private FlickrImage photo;
 
-        private void bind(FlickrPhoto photo){
-            this.photo = photo;
-            imageFlickerViewBinding.setFlickrPhoto(photo);
+        private void bind(FlickrImage image){
+            this.photo = image;
+            imageFlickerViewBinding.setFlickrImage(image);
         }
 
         public ImageViewHolder(ImageViewBinding imageFlickerViewBinding, FlickrViewModel model) {

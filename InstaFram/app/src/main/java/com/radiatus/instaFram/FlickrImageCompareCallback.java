@@ -5,15 +5,15 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-public class FlickrPhotoCompareCallback extends DiffUtil.ItemCallback<FlickrPhoto> {
+public class FlickrImageCompareCallback extends DiffUtil.ItemCallback<FlickrImage> {
 
     @Override
-    public boolean areItemsTheSame(@NonNull FlickrPhoto oldItem, @NonNull FlickrPhoto newItem) {
+    public boolean areItemsTheSame(@NonNull FlickrImage oldItem, @NonNull FlickrImage newItem) {
         return oldItem.getId() == newItem.getId();
     }
 
     @Override
-    public boolean areContentsTheSame(@NonNull FlickrPhoto oldItem, @NonNull FlickrPhoto newItem) {
+    public boolean areContentsTheSame(@NonNull FlickrImage oldItem, @NonNull FlickrImage newItem) {
         Log.d("areContentsTheSame", String.valueOf(oldItem.hasLike() == newItem.hasLike()));
         return oldItem.getIsLike() == newItem.getIsLike();
     }
