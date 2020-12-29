@@ -12,7 +12,11 @@ public class FlickrViewModel extends AndroidViewModel {
     public FlickrViewModel(@NonNull Application application)
     {
         super(application);
-        repository = new Repository(application);
+    }
+
+    public void initRepository(String latitude, String longitude)
+    {
+        repository = new Repository(getApplication(), latitude, longitude);
     }
 
     public void update(FlickrImage flickrImage) {

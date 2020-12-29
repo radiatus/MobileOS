@@ -16,7 +16,7 @@ public class Repository {
     private final LiveData< PagedList<FlickrImage>> pagedListLiveData;
     private final FlickrImageDataSourceFactory dataSourceFactory;
 
-    public Repository(@NonNull Application application)
+    public Repository(@NonNull Application application, String latitude, String longitude)
     {
         dataBase = Room.databaseBuilder(application,
                 LocalDataBase.class, "database")
@@ -24,7 +24,8 @@ public class Repository {
                 .build();
 
         FlickrDataSource dao = new FlickrDataSource(dataBase);
-        dao.setSearchTile("Voronezh");
+//        dao.setSearchTile("Voronezh");
+        dao.setGeo(latitude, longitude);
 
         dataSourceFactory = new FlickrImageDataSourceFactory(dao);
 

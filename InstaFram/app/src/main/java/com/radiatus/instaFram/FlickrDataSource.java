@@ -42,12 +42,19 @@ public class FlickrDataSource {
         }
 
         params.setSort(RELEVANCE);
+        params.setRadius(10);
+        params.setAccuracy(Flickr.ACCURACY_REGION);
         params.setExtras(Extras.MIN_EXTRAS);
         pageLoaded = new ArrayList<>();
     }
 
     public void setSearchTile(String tile) {
         params.setText(tile);
+    }
+
+    public void setGeo(String latitude, String longitude){
+        params.setLatitude(latitude);
+        params.setLongitude(longitude);
     }
 
     private Photo getPhotoByFlicker(int index) {
