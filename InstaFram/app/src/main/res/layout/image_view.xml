@@ -26,12 +26,12 @@
 
             <ImageView
                 android:id="@+id/image"
-                bind:imageUrl="@{flickrImage.imageUrl}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_like_disable"/>
+                android:src="@drawable/ic_like_disable"
+                bind:imageUrl="@{flickrImage.imageUrl}" />
 
             <ImageView
                 android:id="@+id/image_like"

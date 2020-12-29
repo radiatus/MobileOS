@@ -21,7 +21,13 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles 'proguard-rules.pro', getDefaultProguardFile('proguard-android.txt')
+        }
+
+        debug {
+            minifyEnabled true
+            proguardFiles 'proguard-rules.pro', getDefaultProguardFile('proguard-android.txt')
         }
     }
 }
